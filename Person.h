@@ -1,59 +1,49 @@
 #pragma once
-
-#include<iostream>
-#include<string>
-
-using namespace std;
-class Person
-{
+#include <iostream>
+#include <string>
+class Person {
 protected:
 	//att
 	int id;
-	string name, password;
+	std::string name;
+	std::string password;
 public:
 	//
 	Person()
 	{
 		id = 0;
 	}
-	Person(int id, string name, string password)
+	Person(int id, std::string name, std::string password)
 	{
 		this->id = id;
 		this->name = name;
 		this->password = password;
-
 	}
 	//setter
 	void setid(int id)
 	{
 		this->id = id;
-
 	}
-	void SetName(string name)
+	void SetName(std::string name)
 	{
 		this->name = name;
 	}
-	void SetPassword(string password)
+	void SetPassword(std::string password)
 	{
 		this->password = password;
-
 	}
 	//getter
-	int GetId()
+	int getId()
 	{
 		return this->id;
-
 	}
-	string GetName()
+	std::string getName()
 	{
 		return this->name;
-
 	}
-	string GetPassword()
+	std::string getPassword()
 	{
 		return this->password;
 	}
-
 };
-
 
