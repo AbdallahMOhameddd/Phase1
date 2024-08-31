@@ -1,9 +1,7 @@
 #pragma once
-
 #include<iostream>
+#include<string>
 #include"Person.h"
-using namespace std;
-
 class Client :public Person {
 private:
 	//att
@@ -13,63 +11,54 @@ public:
 	Client() {
 		balance = 0;
 	}
-	Client(int id, string name, string password, double balance) :Person(id, name, password)
+	Client(int id, std::string name, std::string password, double balance) :Person(id, name, password)
 	{
 		this->balance = balance;
 	}
 	//setter
 	void SetBalance(double balance) {
-		this->balance = balance;
 		if (balance < 1500) {
-			cout << " this salary not enough\n";
+			std::cout << " this balance is not enough\n";
 		}
-
+		else {
+			this->balance = balance;
+		}
 	}
-	void SetClientname()
+	void SetClientName()
 	{
-		this->name = name;
-		cout << "Please Enter Your name (5 to 20 char) : ";
-		getline(cin, name);
-
+		std::cout << "Please Enter Your name (5 to 20 char) : ";
+		getline(std::cin, name);
 
 		if (name.length() < 5) {
-			cout << "Name is too short\n ";
-
-			return SetClientname();
+			std::cout << "Name is too short\n ";
 		}
 		else if (name.length() > 20) {
-			cout << "Name is too long\n ";
-			return SetClientname();
+			std::cout << "Name is too long\n ";
 		}
-
-
 	}
 	void SetClientPass() {
-		this->password = password;
-		cout << "Please Enter Your password (8 to 20 char) : ";
-		getline(cin, password);
+		std::cout << "Please Enter Your password (8 to 20 char) : ";
+		getline(std::cin, password);
 		{
 			if (password.length() < 8) {
-				cout << "password is too short \n ";
+				std::cout << "password is too short \n ";
 				return SetClientPass();
 			}
 			else if (password.length() > 20) {
-				cout << "password is too long \n";
-				return SetClientPass();
+				std::cout << "password is too long \n";
+				return;
 			}
 		}
 	}
-	void SetClientid()
+	void SetClientId()
 	{
-
-		cout << "Please Enter Your id  : ";
-		cin >> id;
+		std::cout << "Please Enter Your id  : ";
+		std::cin >> id;
 	}
 	//getter
-	double GetBalance()
+	double getBalance()
 	{
 		return this->balance;
-
 	}
 	//method
 
@@ -86,9 +75,8 @@ public:
 			return amount;
 		}
 		else
-			cout << " amount exceeded balance\n";
+			std::cout << " amount exceeded balance\n";
 	}
-
 	double transferto(Client& recipient, double amount)
 	{
 		if (amount <= balance)
@@ -99,14 +87,14 @@ public:
 		}
 		else
 		{
-			cout << " amount exceeded balance\n";
+			std::cout << " amount exceeded balance\n";
 		}
 	}
-	void display() {
-		cout << "client id:       " << GetId() << endl;
-		cout << "client name    : " << GetName() << endl;
-		cout << "client password: " << GetPassword() << endl;
-		cout << "client balance:  " << GetBalance() << endl;
+	void display() {		
+		std::cout << "client id: " << getId() << std::endl;
+		std::cout << "client name: " << getName() << std::endl;
+		std::cout << "client password: " << getPassword() << std::endl;
+		std::cout << "client balance: " << getBalance() << std::endl;
 
 	}
 };
