@@ -12,10 +12,9 @@ class Parser {
 public:
 	static std::vector<std::string> read_from_file(std::string filename);
 		
-	static std::vector<std::string> split(std::string line);
-		
+	static std::vector<std::string> split(std::string line);		
 
-	static Client parse_to_client(std::string line);		
+	static Client parse_to_client(std::string line);
 
 	static Employee parse_to_employee(std::string line);
 	

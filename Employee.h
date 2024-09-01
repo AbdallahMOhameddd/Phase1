@@ -1,139 +1,79 @@
 #pragma once
-
 #include<iostream>
 #include<string>
-#include<vector>
 #include"Person.h"
-#include "Client.h"
-using namespace std;
+#include"Client.h"
+#include "Validation.h"
 class Employee :public Person {
 private:
 	//att
 	double salary;
 public:
 	//cons
-	Employee() {
+	Employee():Person()
+	{
 		salary = 0;
 	}
-	Employee(int id, string name, string password, double salary) :Person(id, name, password)
+	Employee(int id, std::string name, std::string password, double salary) :Person(id, name, password)
 	{
 		this->salary = salary;
 	}
-	//setter
-	void Setsalary(double salary) {
-		if (salary < 5000)
-		{
-			cout << "this salary not enough\n";
+	//setter	
+	void setSalary(double salary) {		
+		if (Validation::validateSalary(salary)) {
+			this->salary = salary;
 		}
-		this->salary = salary;
-
-	}
-	void SetEmployeename()
-	{
-		this->name = name;
-		cout << "Please Enter Your name (5 to 20 char) : ";
-		getline(cin, name);
-		if (name.length() < 5) {
-			cout << "Name is too short ";
-			return SetEmployeename();
-		}
-		else if (name.length() > 20) {
-			cout << "Name is too long ";
-			return SetEmployeename();
-		}
-
-
-	}
-	void SetEmployeePass() {
-
-		this->password = password;
-		cout << "Please Enter Your password (8 to 20 char) : ";
-		getline(cin, password);
-		{
-			if (password.length() < 8) {
-				cout << "password is too short\n ";
-				return SetEmployeePass();
-			}
-			else if (password.length() > 20) {
-				cout << "password is too long \n";
-				return SetEmployeePass();
-			}
-		}
-	}
-	void SetEmployeeid()
-	{
-
-		cout << "Please Enter Your id  : ";
-		cin >> id;
-	}
+		else{
+			std::cout << "Invalid salary" << std::endl;
+	    }	
 	//getter
-	double Getsalary()
-	{
-
-		return this->salary;
-
-	}
-	//method
-
-
-
-	void display() {
-		cout << "Employee id      : " << GetId() << endl;
-		cout << "Employee name    : " << GetName() << endl;
-		cout << "Employee password: " << GetPassword() << endl;
-		cout << "Employee salary  : " << Getsalary() << endl;
-		
-	}
-	void addClient(Client c)
-	{
+		double getSalary() {
+			return salary;
+		}
+	//methods
+	void addClient(Client c){
 		vector<Client>client;
 		client.push_back(c);
 	}
-
-	void search(vector<Client>clients ,int id) {
-		int sum = -1;
+	void search(vector<Client>clients, int id) {
+		int flag = -1;
 		for (int i = 0; i < clients.size(); i++) {
-			
-			if (clients[i].GetId() == id) {
+			if (clients[i].getId() == id) {
 				clients[i].display();
-				sum++;
+				flag++;
 			}
 		}
-		if (sum == -1)
-		{
+		if (flag == -1){
 			cout << "This is not found\n";
 		}
 	}
-	void listclient(vector<Client>clients)
-	{
-		for (int i = 0; i < clients.size(); i++)
-		{
-			clients[i].display() ;
+	void listclient(vector<Client>clients){
+		for (int i = 0; i < clients.size(); i++){
+			clients[i].display();
 			cout << "\n========================\n";
 		}
 	}
-	void editclient(int id, string name, string password, double balance)
-	{
+	void editclient(int id, string name, string password, double balance){
 		vector<Client>c;
-		int sum = -1;
+		int flag = -1;
 		for (int i = 0; i < c.size(); i++) {
 
-			if (c[i].GetId() == id)
-			{
-				c[i].GetName()=name;
-				c[i].GetPassword() = password;
-		    	//c[i].GetBalance()= balance;
-				sum++;
+			if (c[i].getId() == id){
+				c[i].setName(name);
+				c[i].setPassword(password);
+				c[i].setBalance(balance);
+				flag++;
 			}
-
 		}
-		if (sum == -1)
-		{
+		if (flag == -1){
 			cout << "This is not found\n";
 		}
-		
+	}	
+	void display() {
+		std::cout << "Employee id      : " << getId() << std::endl;
+		std::cout << "Employee name    : " << getName() << std::endl;
+		std::cout << "Employee password: " << getPassword() << std::endl;
+		std::cout << "Employee salary  : " << getsalary() << std::endl;
 	}
-
 };
-
 

@@ -2,59 +2,27 @@
 #include<iostream>
 #include<string>
 #include"Person.h"
+#include "Validation.h"
 class Client :public Person {
 private:
 	//att
 	double balance;
 public:
 	//cons
-	Client() {
+	Client() :Person(){
 		balance = 0;
 	}
 	Client(int id, std::string name, std::string password, double balance) :Person(id, name, password)
 	{
 		this->balance = balance;
 	}
-	//setter
-	void SetBalance(double balance) {
-		if (balance < 1500) {
-			std::cout << " this balance is not enough\n";
-		}
-		else {
+	//setter	
+	void setBalance(double balance) {
+		if (Validation::validateBalance(balance))
 			this->balance = balance;
-		}
+		else cout << "Invalid balance\n";
 	}
-	void SetClientName()
-	{
-		std::cout << "Please Enter Your name (5 to 20 char) : ";
-		getline(std::cin, name);
-
-		if (name.length() < 5) {
-			std::cout << "Name is too short\n ";
-		}
-		else if (name.length() > 20) {
-			std::cout << "Name is too long\n ";
-		}
-	}
-	void SetClientPass() {
-		std::cout << "Please Enter Your password (8 to 20 char) : ";
-		getline(std::cin, password);
-		{
-			if (password.length() < 8) {
-				std::cout << "password is too short \n ";
-				return SetClientPass();
-			}
-			else if (password.length() > 20) {
-				std::cout << "password is too long \n";
-				return;
-			}
-		}
-	}
-	void SetClientId()
-	{
-		std::cout << "Please Enter Your id  : ";
-		std::cin >> id;
-	}
+	
 	//getter
 	double getBalance()
 	{

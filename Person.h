@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "Validation.h"
 class Person {
 protected:
 	//att
@@ -24,13 +25,15 @@ public:
 	{
 		this->id = id;
 	}
-	void SetName(std::string name)
-	{
-		this->name = name;
+	void setName(std::string name) {
+		if (Validation::validatename(name))
+			this->name = name;
+		else std::cout << "Invalid name" <<std:: endl;
 	}
-	void SetPassword(std::string password)
-	{
-		this->password = password;
+	void setPassword(std::string passwrod) {
+		if (Validation::validatepassword(password))
+			this->password = passwrod;
+		else std::cout << "Invalid password" << std::endl;
 	}
 	//getter
 	int getId()
