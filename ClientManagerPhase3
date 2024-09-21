@@ -1,0 +1,126 @@
+#include <iostream>
+#include <string>
+#include <unordered_map> // For storing clients
+
+using namespace std;
+
+// Assuming Person and Client are already defined like this:
+class Person {
+protected:
+    int id;
+    string name;
+    string password;
+
+public:
+    Person(int id, const string& name, const string& password)
+        : id(id), name(name), password(password) {}
+
+    int getId() const { return id; }
+    string getName() const { return name; }
+    string getPassword() const { return password; }
+    void setPassword(const string& newPassword) { password = newPassword; }
+};
+
+class Client : public Person {
+public:
+    Client(int id, const string& name, const string& password)
+        : Person(id, name, password) {}
+};
+
+class ClientManager {
+private:
+    static unordered_map<int, Client*> clients;
+
+public:
+    // Prints the client menu
+    static void printClientMenu() {
+        cout << "==== Client Menu ====" << endl;
+        cout << "1. View Balance" << endl;
+        cout << "2. Deposit" << endl;
+        cout << "3. Withdraw" << endl;
+        cout << "4. Update Password" << endl;
+        cout << "5. Logout" << endl;
+        cout << "=====================" << endl;
+    }
+
+    // Updates the password for a given person
+    static void updatePassword(Person* person) {
+        string oldPassword, newPassword;
+        cout << "Enter old password: ";
+        cin >> oldPassword;
+        
+        if (oldPassword == person->getPassword()) {
+            cout << "Enter new password: ";
+            cin >> newPassword;
+            person->setPassword(newPassword);
+            cout << "Password updated successfully!" << endl;
+        } else {
+            cout << "Incorrect old password!" << endl;
+        }
+    }
+
+    // Logins the client with the given ID and password
+    static Client* login(int id, const string& password) {
+        if (clients.find(id) != clients.end() && clients[id]->getPassword() == password) {
+            cout << "Login successful!" << endl;
+            return clients[id];
+        } else {
+            cout << "Invalid ID or password." << endl;
+            return nullptr;
+        }
+    }
+
+    // Handles client options after login
+    static bool clientOptions(Client* client) {
+        int choice;
+        printClientMenu();
+        cout << "Enter your choice: ";
+        cin >> choice;
+        
+        switch (choice) {
+            case 1:
+                // Option 1: View Balance (This is a placeholder action)
+                cout << "Balance: $1000" << endl;
+                break;
+            case 2:
+                // Option 2: Deposit (Placeholder action)
+                cout << "Deposit successful!" << endl;
+                break;
+            case 3:
+                // Option 3: Withdraw (Placeholder action)
+                cout << "Withdrawal successful!" << endl;
+                break;
+            case 4:
+                // Option 4: Update Password
+                updatePassword(client);
+                break;
+            case 5:
+                // Option 5: Logout
+                cout << "Logging out..." << endl;
+                return false;
+            default:
+                cout << "Invalid choice!" << endl;
+                break;
+        }
+        return true;
+    }
+};
+
+// Initializing the static member
+unordered_map<int, Client*> ClientManager::clients;
+
+int main() {
+    // Adding some clients to the system for demonstration
+    ClientManager::clients[101] = new Client(101, "John Doe", "password123");
+    ClientManager::clients[102] = new Client(102, "Jane Doe", "securepass");
+
+    // Example login and interaction
+    Client* loggedInClient = ClientManager::login(101, "password123");
+    if (loggedInClient) {
+        while (ClientManager::clientOptions(loggedInClient)) {
+            // Keep showing the menu until the user logs out
+        }
+    }
+
+    return 0;
+}
