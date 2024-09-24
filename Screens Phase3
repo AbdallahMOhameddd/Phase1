@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+
+class Screens {
+public:
+    // a. Display the bank name
+    static void bankName() {
+        cout << "----------------------------------" << endl;
+        cout << "        Welcome to Abdallah Bank        " << endl;
+        cout << "----------------------------------" << endl;
+    }
+
+    // b. Display the welcome message
+    static void welcome() {
+        bankName();
+        cout << "Welcome to XYZ Bank System!" << endl;
+        cout << "We are glad to serve you." << endl;
+    }
+
+    // c. Display login options (for Employee, Admin, etc.)
+    static void loginOptions() {
+        cout << "Please choose an option to login:" << endl;
+        cout << "1. Login as Employee" << endl;
+        cout << "2. Login as Admin" << endl;
+        cout << "3. Exit" << endl;
+    }
+
+    // d. Ask user to choose whether to login as Employee or Admin
+    static int loginAs() {
+        int choice;
+        loginOptions();
+        cout << "Enter your choice: ";
+        cin >> choice;
+        return choice;
+    }
+
+    // e. Display an invalid option message
+    static void invalid(int c) {
+        cout << "Invalid option: " << c << ". Please try again." << endl;
+    }
+
+    // f. Display the logout message
+    static void logout() {
+        cout << "You have been successfully logged out." << endl;
+    }
+
+    // g. Display the login screen depending on choice (Employee/Admin)
+    static void loginScreen(int c) {
+        if (c == 1) {
+            cout << "Employee Login" << endl;
+            // Display prompts to login as Employee
+        } else if (c == 2) {
+            cout << "Admin Login" << endl;
+            // Display prompts to login as Admin
+        } else {
+            invalid(c);
+        }
+    }
+
+    // h. Run the application (simple flow to navigate login options)
+    static void runApp() {
+        while (true) {
+            welcome();
+            int choice = loginAs();
+            
+            if (choice == 3) {
+                cout << "Exiting the application." << endl;
+                break;
+            }
+
+            loginScreen(choice);
+            
+            // Here you would handle the actual login logic (for example, calling EmployeeManager or AdminManager)
+            // For now, assume the user logs in and logs out
+            logout();
+        }
+    }
+};
+
+int main() {
+    // Run the application
+    Screens::runApp();
+    return 0;
+}
